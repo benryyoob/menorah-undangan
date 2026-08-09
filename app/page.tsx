@@ -810,8 +810,8 @@ function HomeContent() {
 
             <section
               className="
-                px-6
-                py-24
+                px-2
+                py-16
                 text-center
               "
             >
@@ -829,18 +829,20 @@ function HomeContent() {
               <p
                 className="
                   mt-10
-                  text-lg
+                  text-md
                   font-serif
                   leading-8
                 "
               >
-                Dengan penuh sukacita,
+                Tuhan membuat segala sesuatu indah pada waktunya
                 <br />
-                kami mengundang Bapak/Ibu/Saudara/i
+                Indah saat Dia mempertemukan,
                 <br />
-                untuk hadir dan memberikan
+                Indah saat dia menumbuhkan kasih
                 <br />
-                doa restu dalam pernikahan kami.
+                dan Indah saat Dia mempersatukan Putra Putri kami
+                <br />
+                dalam satu Ikatan Pernikahan Kudus
               </p>
 
             </section>
@@ -852,8 +854,8 @@ function HomeContent() {
 
             <section
               className="
-                px-6
-                py-24
+                px-2
+                py-4
                 text-center
               "
             >
@@ -1182,52 +1184,326 @@ function HomeContent() {
                 PENUTUP
             ====================================================== */}
 
-            <section
-              className="
-                px-6
-                py-28
-                text-center
-              "
-            >
+{/* =====================================================
+    PENUTUP
+===================================================== */}
 
-              <p
-                className="
-                  text-lg
-                  font-serif
-                  leading-8
-                "
-              >
-                Merupakan suatu kebahagiaan bagi kami
-                <br />
-                apabila Bapak/Ibu/Saudara/i
-                <br />
-                berkenan hadir dan memberikan
-                <br />
-                doa restu kepada kami.
-              </p>
+<section
+  className="
+    px-6
+    py-28
+    text-center
+  "
+>
 
-              <p
-                className="
-                  mt-12
-                  text-xs
-                  tracking-[0.3em]
-                  text-[#9a8066]
-                "
-              >
-                DENGAN PENUH KASIH
-              </p>
+  {/* UCAPAN PENUTUP */}
 
-              <p
-                className="
-                  mt-4
-                  text-3xl
-                  font-serif
-                "
-              >
-                Daniel & Erni
-              </p>
+  <motion.p
+    initial={{
+      opacity: 0,
+      y: 20,
+    }}
+    whileInView={{
+      opacity: 1,
+      y: 0,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 0.8,
+    }}
+    className="
+      text-lg
+      font-serif
+      leading-8
+    "
+  >
+    Merupakan suatu kebahagiaan bagi kami
+    <br />
+    apabila Bapak/Ibu/Saudara/i
+    <br />
+    berkenan hadir dan memberikan
+    <br />
+    doa restu kepada kami.
+  </motion.p>
 
-            </section>
+
+  {/* =====================================================
+      KAMI YANG BERBAHAGIA
+  ====================================================== */}
+
+  <motion.p
+    initial={{
+      opacity: 0,
+      y: 20,
+    }}
+    whileInView={{
+      opacity: 1,
+      y: 0,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 0.8,
+      delay: 0.2,
+    }}
+    className="
+      mt-16
+      text-3xl
+      font-serif
+      text-[#4b3b2f]
+    "
+  >
+    Kami yang Berbahagia
+  </motion.p>
+
+
+  {/* GARIS DEKORASI */}
+
+  <motion.div
+    initial={{
+      opacity: 0,
+      scaleX: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+      scaleX: 1,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 0.8,
+      delay: 0.3,
+    }}
+    className="
+      mx-auto
+      mt-5
+      h-px
+      w-16
+      bg-[#b99d7d]
+    "
+  />
+
+
+  {/* =====================================================
+      KELUARGA
+  ====================================================== */}
+
+  <div
+    className="
+      mt-10
+      grid
+      grid-cols-2
+      gap-6
+    "
+  >
+
+    {/* =================================================
+        KELUARGA MEMPELAI PRIA
+    ================================================== */}
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: -30,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      viewport={{
+        once: true,
+      }}
+      transition={{
+        duration: 0.8,
+        delay: 0.3,
+      }}
+      className="
+        text-center
+      "
+    >
+
+      <p
+        className="
+          text-[10px]
+          tracking-[0.2em]
+          text-[#9a8066]
+        "
+      >
+        KELUARGA MEMPELAI 
+        <br />
+        PRIA
+      </p>
+
+      <div
+        className="
+          mx-auto
+          mt-4
+          h-px
+          w-8
+          bg-[#b99d7d]/60
+        "
+      />
+
+      <p
+        className="
+          mt-5
+          text-sm
+          font-serif
+          leading-7
+        "
+      >
+        Keluarga Tanaem
+        <br />
+        Keluarga Laos
+      </p>
+
+    </motion.div>
+
+
+    {/* =================================================
+        KELUARGA MEMPELAI WANITA
+    ================================================== */}
+
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: 30,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      viewport={{
+        once: true,
+      }}
+      transition={{
+        duration: 0.8,
+        delay: 0.3,
+      }}
+      className="
+        text-center
+      "
+    >
+
+      <p
+        className="
+          text-[10px]
+          tracking-[0.2em]
+          text-[#9a8066]
+        "
+      >
+        KELUARGA MEMPELAI 
+        <br />
+        WANITA
+      </p>
+
+      <div
+        className="
+          mx-auto
+          mt-4
+          h-px
+          w-8
+          bg-[#b99d7d]/60
+        "
+      />
+
+      <p
+        className="
+          mt-5
+          text-sm
+          font-serif
+          leading-7
+        "
+      >
+        Keluarga Nomate
+        <br />
+        Keluarga Buling
+      </p>
+
+    </motion.div>
+
+  </div>
+
+
+  {/* =====================================================
+      NAMA MEMPELAI
+  ====================================================== */}
+
+  <motion.div
+    initial={{
+      opacity: 0,
+      y: 20,
+    }}
+    whileInView={{
+      opacity: 1,
+      y: 0,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 0.8,
+      delay: 0.5,
+    }}
+    className="
+      mt-16
+    "
+  >
+
+    <p
+      className="
+        text-xs
+        tracking-[0.3em]
+        text-[#9a8066]
+      "
+    >
+      DENGAN PENUH KASIH
+    </p>
+
+    <p
+      className="
+        mt-4
+        text-3xl
+        font-serif
+        text-[#4b3b2f]
+      "
+    >
+      Daniel & Erni
+    </p>
+
+  </motion.div>
+
+
+  {/* ORNAMEN PENUTUP */}
+
+  <motion.div
+    initial={{
+      opacity: 0,
+    }}
+    whileInView={{
+      opacity: 1,
+    }}
+    viewport={{
+      once: true,
+    }}
+    transition={{
+      duration: 1,
+      delay: 0.7,
+    }}
+    className="
+      mt-8
+      text-2xl
+      text-[#b99d7d]
+    "
+  >
+    ❦
+  </motion.div>
+
+</section>
 
           </motion.div>
 

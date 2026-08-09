@@ -295,7 +295,7 @@ export default function Countdown() {
             text-xs
             text-white/60"
           >
-            09.00 WITA
+            18.00 WITA
           </p>
 
         </div>
