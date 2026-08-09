@@ -46,37 +46,74 @@ export default function Location() {
           transition={{
             duration: 0.8,
           }}
-          className="relative min-h-screen
-          overflow-hidden
-          flex items-center justify-center"
+          className="
+            relative
+            min-h-screen
+            overflow-hidden
+            flex
+            items-center
+            justify-center
+            -mt-px
+          "
         >
 
           {/* =========================================
-              FOTO LATAR
-          ========================================== */}
-          <div className="absolute inset-0">
+    FOTO LATAR
+========================================== */}
+<div className="absolute inset-0">
 
-            <Image
-              src={location.image}
-              alt={location.name}
-              fill
-              className="object-cover object-center"
-              sizes="100vw"
-            />
+  <Image
+    src={location.image}
+    alt={location.name}
+    fill
+    className="object-cover object-center"
+    sizes="100vw"
+  />
 
-            {/* Overlay utama */}
-            <div className="absolute inset-0 bg-black/45" />
+  {/* Overlay utama */}
+  <div className="absolute inset-0 bg-black/40" />
 
-            {/* Gradient */}
-            <div
-              className="absolute inset-0
-              bg-gradient-to-b
-              from-black/30
-              via-black/20
-              to-black/70"
-            />
+  {/* Gradient atas - menyambungkan dengan section sebelumnya */}
+  <div
+    className="
+      absolute
+      inset-x-0
+      top-0
+      h-32
+      bg-gradient-to-b
+      from-black/80
+      via-black/30
+      to-transparent
+    "
+  />
 
-          </div>
+  {/* Gradient bawah - menyambungkan dengan section berikutnya */}
+  <div
+    className="
+      absolute
+      inset-x-0
+      bottom-0
+      h-40
+      bg-gradient-to-t
+      from-black/80
+      via-black/30
+      to-transparent
+    "
+  />
+
+  {/* Gradient keseluruhan */}
+  <div
+    className="
+      absolute
+      inset-0
+      bg-gradient-to-b
+      from-black/10
+      via-black/10
+      to-black/50
+    "
+  />
+
+</div>
 
 
           {/* =========================================

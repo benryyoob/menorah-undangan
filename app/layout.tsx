@@ -13,17 +13,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  // =========================================
-  // BASE URL
-  // =========================================
-
   metadataBase: new URL(
     "https://daniel-dan-erni.vercel.app"
   ),
-
-  // =========================================
-  // BASIC SEO
-  // =========================================
 
   title: {
     default: "Daniel & Erni | Undangan Pernikahan",
@@ -47,12 +39,7 @@ export const metadata: Metadata = {
   ],
 
   creator: "Daniel & Erni",
-
   publisher: "Daniel & Erni",
-
-  // =========================================
-  // ICON
-  // =========================================
 
   icons: {
     icon: "/images/favicon.png",
@@ -60,69 +47,45 @@ export const metadata: Metadata = {
     apple: "/images/favicon.png",
   },
 
-  // =========================================
-  // OPEN GRAPH
-  // WhatsApp / Facebook / Telegram
-  // =========================================
-
   openGraph: {
     type: "website",
-
     locale: "id_ID",
 
     url: "https://daniel-dan-erni.vercel.app",
 
     siteName: "Daniel & Erni",
 
-    title:
-      "Daniel & Erni | Undangan Pernikahan",
+    title: "Daniel & Erni | Undangan Pernikahan",
 
     description:
-      "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Dany & Erni.",
+      "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Daniel & Erni.",
 
     images: [
       {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt:
-          "Daniel & Erni - Undangan Pernikahan",
+        alt: "Daniel & Erni - Undangan Pernikahan",
       },
     ],
   },
 
-  // =========================================
-  // TWITTER / X
-  // =========================================
-
   twitter: {
     card: "summary_large_image",
 
-    title:
-      "Daniel & Erni | Undangan Pernikahan",
+    title: "Daniel & Erni | Undangan Pernikahan",
 
     description:
       "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Daniel & Erni.",
 
-    images: [
-      "/images/og-image.jpg",
-    ],
+    images: ["/images/og-image.jpg"],
   },
-
-  // =========================================
-  // ROBOTS
-  // =========================================
 
   robots: {
     index: true,
     follow: true,
   },
 }
-
-
-// =========================================
-// ROOT LAYOUT
-// =========================================
 
 export default function RootLayout({
   children,
@@ -132,9 +95,7 @@ export default function RootLayout({
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="h-full">
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   )
 }
