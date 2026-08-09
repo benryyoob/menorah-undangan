@@ -13,9 +13,17 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  // =====================================================
+  // BASE URL
+  // =====================================================
+
   metadataBase: new URL(
     "https://daniel-dan-erni.vercel.app"
   ),
+
+  // =====================================================
+  // BASIC SEO
+  // =====================================================
 
   title: {
     default: "Daniel & Erni | Undangan Pernikahan",
@@ -41,14 +49,23 @@ export const metadata: Metadata = {
   creator: "Daniel & Erni",
   publisher: "Daniel & Erni",
 
+  // =====================================================
+  // ICON
+  // =====================================================
+
   icons: {
     icon: "/images/favicon.png",
     shortcut: "/images/favicon.png",
     apple: "/images/favicon.png",
   },
 
+  // =====================================================
+  // OPEN GRAPH
+  // =====================================================
+
   openGraph: {
     type: "website",
+
     locale: "id_ID",
 
     url: "https://daniel-dan-erni.vercel.app",
@@ -70,6 +87,10 @@ export const metadata: Metadata = {
     ],
   },
 
+  // =====================================================
+  // TWITTER / X
+  // =====================================================
+
   twitter: {
     card: "summary_large_image",
 
@@ -78,14 +99,29 @@ export const metadata: Metadata = {
     description:
       "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Daniel & Erni.",
 
-    images: ["/images/og-image.jpg"],
+    images: [
+      {
+        url: "/images/og-image.jpg",
+        width: 630,
+        height: 1200,
+        alt: "Daniel & Erni - Undangan Pernikahan",
+      },
+    ],
   },
+
+  // =====================================================
+  // ROBOTS
+  // =====================================================
 
   robots: {
     index: true,
     follow: true,
   },
 }
+
+// =====================================================
+// ROOT LAYOUT
+// =====================================================
 
 export default function RootLayout({
   children,
@@ -95,7 +131,7 @@ export default function RootLayout({
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body>{children}</body>
+      {children}
     </html>
   )
 }
