@@ -78,7 +78,7 @@ export const metadata: Metadata = {
       "Daniel & Erni | Undangan Pernikahan",
 
     description:
-      "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Daniel & Erni.",
+      "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Dany & Erni.",
 
     images: [
       {
