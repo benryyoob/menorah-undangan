@@ -13,36 +13,43 @@ export default function MusicPlayer({
   const [playing, setPlaying] = useState(false)
 
   useEffect(() => {
-    if (!audioRef.current) return
+    const audio = audioRef.current
+
+    if (!audio) return
 
     if (isPlaying) {
-      audioRef.current
+      audio
         .play()
         .then(() => {
           setPlaying(true)
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log("Autoplay musik diblokir browser:", error)
           setPlaying(false)
         })
     } else {
-      audioRef.current.pause()
+      audio.pause()
+      audio.currentTime = 0
       setPlaying(false)
     }
   }, [isPlaying])
 
   const toggleMusic = () => {
-    if (!audioRef.current) return
+    const audio = audioRef.current
+
+    if (!audio) return
 
     if (playing) {
-      audioRef.current.pause()
+      audio.pause()
       setPlaying(false)
     } else {
-      audioRef.current
+      audio
         .play()
         .then(() => {
           setPlaying(true)
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log("Musik tidak dapat diputar:", error)
           setPlaying(false)
         })
     }
@@ -50,6 +57,7 @@ export default function MusicPlayer({
 
   return (
     <>
+      {/* AUDIO */}
       <audio
         ref={audioRef}
         src="/music/wedding.mp3"
@@ -57,19 +65,36 @@ export default function MusicPlayer({
         preload="auto"
       />
 
+      {/* BUTTON */}
       {isPlaying && (
         <button
+          type="button"
           onClick={toggleMusic}
           aria-label={
-            playing ? "Matikan musik" : "Nyalakan musik"
+            playing
+              ? "Matikan musik"
+              : "Nyalakan musik"
           }
-          className="fixed bottom-5 right-5 z-50
-          flex h-12 w-12 items-center justify-center
-          rounded-full
-          border border-[#b99d7d]
-          bg-[#f8f3ed]/90
-          shadow-lg
-          backdrop-blur-sm"
+          className="
+            fixed
+            bottom-5
+            right-5
+            z-50
+            flex
+            h-12
+            w-12
+            items-center
+            justify-center
+            rounded-full
+            border
+            border-[#b99d7d]
+            bg-[#f8f3ed]/90
+            shadow-lg
+            backdrop-blur-sm
+            transition-transform
+            hover:scale-105
+            active:scale-95
+          "
         >
           <span
             className={

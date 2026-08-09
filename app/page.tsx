@@ -1,8 +1,9 @@
 "use client"
 
 import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
+import { Suspense, useState } from "react"
 import { useSearchParams } from "next/navigation"
+
 import Countdown from "@/components/Countdown"
 import Image from "next/image"
 import Location from "@/components/Location"
@@ -11,12 +12,19 @@ import LoveStory from "@/components/LoveStory"
 import Gallery from "@/components/Gallery"
 import RSVP from "@/components/RSVP"
 
-export default function Home() {
+
+// =====================================================
+// KONTEN UTAMA
+// =====================================================
+
+function HomeContent() {
+
   const [isOpening, setIsOpening] = useState(false)
   const [isOpened, setIsOpened] = useState(false)
 
   // =====================================================
   // NAMA TAMU DARI URL
+  //
   // Contoh:
   // ?to=Bapak%20John%20Doe
   // =====================================================
@@ -25,20 +33,28 @@ export default function Home() {
 
   const guestName = searchParams.get("to") || ""
 
+
   // =====================================================
   // BUKA UNDANGAN
   // =====================================================
 
   const handleOpenInvitation = () => {
+
     setIsOpening(true)
 
     setTimeout(() => {
+
       setIsOpened(true)
+      setIsOpening(false)
+
     }, 1500)
+
   }
 
+
   return (
-    <main className="min-h-screen bg-[#f8f3ed]">
+
+    <main className="min-h-screen">
 
       <AnimatePresence mode="wait">
 
@@ -47,21 +63,27 @@ export default function Home() {
         ====================================================== */}
 
         {!isOpened && (
+
           <motion.div
             key="opening"
+
             initial={{
               opacity: 0,
             }}
+
             animate={{
               opacity: 1,
             }}
+
             exit={{
               opacity: 0,
               scale: 1.05,
+
               transition: {
                 duration: 1,
               },
             }}
+
             className="
               fixed
               inset-0
@@ -86,11 +108,13 @@ export default function Home() {
                 sizes="100vw"
               />
 
-              {/* Overlay */}
-
-              <div className="absolute inset-0 bg-black/45" />
-
-              {/* Gradient bawah */}
+              <div
+                className="
+                  absolute
+                  inset-0
+                  bg-black/45
+                "
+              />
 
               <div
                 className="
@@ -190,19 +214,20 @@ export default function Home() {
               "
             >
 
-              {/* =================================================
-                  LABEL
-              ================================================== */}
+              {/* LABEL */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   y: -20,
                 }}
+
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 transition={{
                   duration: 1,
                 }}
@@ -227,19 +252,24 @@ export default function Home() {
               ================================================== */}
 
               {guestName && (
+
                 <motion.div
+
                   initial={{
                     opacity: 0,
                     y: -10,
                   }}
+
                   animate={{
                     opacity: 1,
                     y: 0,
                   }}
+
                   transition={{
                     duration: 1,
                     delay: 0.2,
                   }}
+
                   className="mt-6"
                 >
 
@@ -268,6 +298,7 @@ export default function Home() {
                   </p>
 
                 </motion.div>
+
               )}
 
 
@@ -276,18 +307,22 @@ export default function Home() {
               ================================================== */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   scale: 0.9,
                 }}
+
                 animate={{
                   opacity: 1,
                   scale: 1,
                 }}
+
                 transition={{
                   duration: 1.2,
                   delay: guestName ? 0.4 : 0.2,
                 }}
+
                 className="mt-8"
               >
 
@@ -332,18 +367,22 @@ export default function Home() {
               ================================================== */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   y: 20,
                 }}
+
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 transition={{
                   duration: 1,
                   delay: guestName ? 0.7 : 0.5,
                 }}
+
                 className="mt-8"
               >
 
@@ -374,27 +413,36 @@ export default function Home() {
               ================================================== */}
 
               <motion.button
+
                 initial={{
                   opacity: 0,
                   y: 30,
                 }}
+
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 transition={{
                   duration: 1,
                   delay: guestName ? 1 : 0.8,
                 }}
+
                 whileHover={{
                   scale: 1.05,
                   backgroundColor:
                     "rgba(255,255,255,0.25)",
                 }}
+
                 whileTap={{
                   scale: 0.95,
                 }}
+
                 onClick={handleOpenInvitation}
+
+                disabled={isOpening}
+
                 className="
                   mt-12
                   rounded-full
@@ -407,27 +455,35 @@ export default function Home() {
                   tracking-[0.3em]
                   backdrop-blur-sm
                   transition-colors
+                  disabled:cursor-not-allowed
+                  disabled:opacity-70
                 "
               >
-                BUKA UNDANGAN
+
+                {isOpening
+                  ? "MEMBUKA..."
+                  : "BUKA UNDANGAN"}
+
               </motion.button>
 
 
-              {/* =================================================
-                  FOOTER
-              ================================================== */}
+              {/* FOOTER */}
 
               <motion.p
+
                 initial={{
                   opacity: 0,
                 }}
+
                 animate={{
                   opacity: 1,
                 }}
+
                 transition={{
                   duration: 1,
                   delay: guestName ? 1.3 : 1.2,
                 }}
+
                 className="
                   absolute
                   bottom-10
@@ -442,6 +498,7 @@ export default function Home() {
             </div>
 
           </motion.div>
+
         )}
 
 
@@ -450,19 +507,25 @@ export default function Home() {
         ====================================================== */}
 
         {isOpened && (
+
           <motion.div
+
             key="invitation"
+
             initial={{
               opacity: 0,
               y: 40,
             }}
+
             animate={{
               opacity: 1,
               y: 0,
             }}
+
             transition={{
               duration: 1,
             }}
+
             className="
               min-h-screen
               w-full
@@ -472,6 +535,7 @@ export default function Home() {
               text-[#4b3b2f]
             "
           >
+
 
             {/* =====================================================
                 HERO
@@ -498,8 +562,6 @@ export default function Home() {
                   sizes="100vw"
                 />
 
-                {/* Overlay */}
-
                 <div
                   className="
                     absolute
@@ -507,8 +569,6 @@ export default function Home() {
                     bg-black/40
                   "
                 />
-
-                {/* Gradient */}
 
                 <div
                   className="
@@ -524,7 +584,7 @@ export default function Home() {
               </div>
 
 
-              {/* Ornamen */}
+              {/* ORNAMEN */}
 
               <div
                 className="
@@ -591,17 +651,21 @@ export default function Home() {
               {/* KONTEN HERO */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   y: 30,
                 }}
+
                 animate={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 transition={{
                   duration: 1.2,
                 }}
+
                 className="
                   relative
                   z-20
@@ -627,7 +691,6 @@ export default function Home() {
                   The Wedding Of
                 </p>
 
-
                 <h1
                   className="
                     mt-8
@@ -640,7 +703,6 @@ export default function Home() {
                   Daniel
                 </h1>
 
-
                 <p
                   className="
                     my-3
@@ -651,7 +713,6 @@ export default function Home() {
                 >
                   &
                 </p>
-
 
                 <h1
                   className="
@@ -664,9 +725,6 @@ export default function Home() {
                   Erni
                 </h1>
 
-
-                {/* Garis */}
-
                 <div
                   className="
                     mt-8
@@ -675,9 +733,6 @@ export default function Home() {
                     bg-white/60
                   "
                 />
-
-
-                {/* Tanggal */}
 
                 <p
                   className="
@@ -688,9 +743,6 @@ export default function Home() {
                 >
                   05 SEPTEMBER 2026
                 </p>
-
-
-                {/* Lokasi singkat */}
 
                 <p
                   className="
@@ -704,16 +756,19 @@ export default function Home() {
                 </p>
 
 
-                {/* Scroll indicator */}
+                {/* SCROLL */}
 
                 <motion.div
+
                   animate={{
                     y: [0, 8, 0],
                   }}
+
                   transition={{
                     duration: 2,
                     repeat: Infinity,
                   }}
+
                   className="
                     absolute
                     bottom-10
@@ -814,43 +869,51 @@ export default function Home() {
               </p>
 
 
-              {/* =================================================
-                  DANIEL
-              ================================================== */}
+              {/* DANIEL */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   y: 30,
                 }}
+
                 whileInView={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 viewport={{
                   once: true,
                 }}
+
                 transition={{
                   duration: 0.8,
                 }}
+
                 className="mt-12"
               >
 
                 <motion.div
+
                   initial={{
                     opacity: 0,
                     scale: 0.8,
                   }}
+
                   whileInView={{
                     opacity: 1,
                     scale: 1,
                   }}
+
                   viewport={{
                     once: true,
                   }}
+
                   transition={{
                     duration: 0.8,
                   }}
+
                   className="
                     relative
                     mx-auto
@@ -950,42 +1013,49 @@ export default function Home() {
               </div>
 
 
-              {/* =================================================
-                  ERNI
-              ================================================== */}
+              {/* ERNI */}
 
               <motion.div
+
                 initial={{
                   opacity: 0,
                   y: 30,
                 }}
+
                 whileInView={{
                   opacity: 1,
                   y: 0,
                 }}
+
                 viewport={{
                   once: true,
                 }}
+
                 transition={{
                   duration: 0.8,
                 }}
               >
 
                 <motion.div
+
                   initial={{
                     opacity: 0,
                     scale: 0.8,
                   }}
+
                   whileInView={{
                     opacity: 1,
                     scale: 1,
                   }}
+
                   viewport={{
                     once: true,
                   }}
+
                   transition={{
                     duration: 0.8,
                   }}
+
                   className="
                     relative
                     mx-auto
@@ -1160,10 +1230,46 @@ export default function Home() {
             </section>
 
           </motion.div>
+
         )}
 
       </AnimatePresence>
 
+      {/* =====================================================
+          MUSIC PLAYER
+      ====================================================== */}
+      <MusicPlayer isPlaying={isOpened} />
+
     </main>
+  )
+}
+
+
+// =====================================================
+// PAGE WRAPPER
+//
+// Suspense diperlukan karena HomeContent menggunakan
+// useSearchParams().
+// =====================================================
+
+export default function Home() {
+
+  return (
+
+    <Suspense
+      fallback={
+        <main
+          className="
+            min-h-screen
+            bg-black
+          "
+        />
+      }
+    >
+
+      <HomeContent />
+
+    </Suspense>
+
   )
 }
