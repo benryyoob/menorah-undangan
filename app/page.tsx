@@ -693,7 +693,7 @@ function HomeContent() {
                 <h1
                   className="
                     mt-8
-                    text-6xl
+                    text-4xl
                     font-serif
                     leading-none
                     drop-shadow-xl
@@ -715,7 +715,7 @@ function HomeContent() {
 
                 <h1
                   className="
-                    text-6xl
+                    text-4xl
                     font-serif
                     leading-none
                     drop-shadow-xl
@@ -740,18 +740,7 @@ function HomeContent() {
                     tracking-[0.35em]
                   "
                 >
-                  05 SEPTEMBER 2026
-                </p>
-
-                <p
-                  className="
-                    mt-3
-                    text-xs
-                    tracking-[0.15em]
-                    text-white/80
-                  "
-                >
-                  KUPANG, NUSA TENGGARA TIMUR
+                  Kupang, 05 SEPTEMBER 2026
                 </p>
 
 
