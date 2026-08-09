@@ -11,7 +11,7 @@ import MusicPlayer from "@/components/MusicPlayer"
 import LoveStory from "@/components/LoveStory"
 import Gallery from "@/components/Gallery"
 import RSVP from "@/components/RSVP"
-
+import WhatsAppShare from "@/components/WhatsAppShare"
 
 // =====================================================
 // KONTEN UTAMA
@@ -1184,326 +1184,329 @@ function HomeContent() {
                 PENUTUP
             ====================================================== */}
 
-{/* =====================================================
-    PENUTUP
-===================================================== */}
+            {/* =====================================================
+                PENUTUP
+            ===================================================== */}
 
-<section
-  className="
-    px-6
-    py-28
-    text-center
-  "
->
+            <section
+              className="
+                px-6
+                py-28
+                text-center
+              "
+            >
 
-  {/* UCAPAN PENUTUP */}
+              {/* UCAPAN PENUTUP */}
 
-  <motion.p
-    initial={{
-      opacity: 0,
-      y: 20,
-    }}
-    whileInView={{
-      opacity: 1,
-      y: 0,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 0.8,
-    }}
-    className="
-      text-lg
-      font-serif
-      leading-8
-    "
-  >
-    Merupakan suatu kebahagiaan bagi kami
-    <br />
-    apabila Bapak/Ibu/Saudara/i
-    <br />
-    berkenan hadir dan memberikan
-    <br />
-    doa restu kepada kami.
-  </motion.p>
-
-
-  {/* =====================================================
-      KAMI YANG BERBAHAGIA
-  ====================================================== */}
-
-  <motion.p
-    initial={{
-      opacity: 0,
-      y: 20,
-    }}
-    whileInView={{
-      opacity: 1,
-      y: 0,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 0.8,
-      delay: 0.2,
-    }}
-    className="
-      mt-16
-      text-3xl
-      font-serif
-      text-[#4b3b2f]
-    "
-  >
-    Kami yang Berbahagia
-  </motion.p>
+              <motion.p
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 0.8,
+                }}
+                className="
+                  text-lg
+                  font-serif
+                  leading-8
+                "
+              >
+                Merupakan suatu kebahagiaan bagi kami
+                <br />
+                apabila Bapak/Ibu/Saudara/i
+                <br />
+                berkenan hadir dan memberikan
+                <br />
+                doa restu kepada kami.
+              </motion.p>
 
 
-  {/* GARIS DEKORASI */}
+              {/* =====================================================
+                  KAMI YANG BERBAHAGIA
+              ====================================================== */}
 
-  <motion.div
-    initial={{
-      opacity: 0,
-      scaleX: 0,
-    }}
-    whileInView={{
-      opacity: 1,
-      scaleX: 1,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 0.8,
-      delay: 0.3,
-    }}
-    className="
-      mx-auto
-      mt-5
-      h-px
-      w-16
-      bg-[#b99d7d]
-    "
-  />
-
-
-  {/* =====================================================
-      KELUARGA
-  ====================================================== */}
-
-  <div
-    className="
-      mt-10
-      grid
-      grid-cols-2
-      gap-6
-    "
-  >
-
-    {/* =================================================
-        KELUARGA MEMPELAI PRIA
-    ================================================== */}
-
-    <motion.div
-      initial={{
-        opacity: 0,
-        x: -30,
-      }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.8,
-        delay: 0.3,
-      }}
-      className="
-        text-center
-      "
-    >
-
-      <p
-        className="
-          text-[10px]
-          tracking-[0.2em]
-          text-[#9a8066]
-        "
-      >
-        KELUARGA MEMPELAI 
-        <br />
-        PRIA
-      </p>
-
-      <div
-        className="
-          mx-auto
-          mt-4
-          h-px
-          w-8
-          bg-[#b99d7d]/60
-        "
-      />
-
-      <p
-        className="
-          mt-5
-          text-sm
-          font-serif
-          leading-7
-        "
-      >
-        Keluarga Tanaem
-        <br />
-        Keluarga Laos
-      </p>
-
-    </motion.div>
+              <motion.p
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.2,
+                }}
+                className="
+                  mt-16
+                  text-3xl
+                  font-serif
+                  text-[#4b3b2f]
+                "
+              >
+                Kami yang Berbahagia
+              </motion.p>
 
 
-    {/* =================================================
-        KELUARGA MEMPELAI WANITA
-    ================================================== */}
+              {/* GARIS DEKORASI */}
 
-    <motion.div
-      initial={{
-        opacity: 0,
-        x: 30,
-      }}
-      whileInView={{
-        opacity: 1,
-        x: 0,
-      }}
-      viewport={{
-        once: true,
-      }}
-      transition={{
-        duration: 0.8,
-        delay: 0.3,
-      }}
-      className="
-        text-center
-      "
-    >
-
-      <p
-        className="
-          text-[10px]
-          tracking-[0.2em]
-          text-[#9a8066]
-        "
-      >
-        KELUARGA MEMPELAI 
-        <br />
-        WANITA
-      </p>
-
-      <div
-        className="
-          mx-auto
-          mt-4
-          h-px
-          w-8
-          bg-[#b99d7d]/60
-        "
-      />
-
-      <p
-        className="
-          mt-5
-          text-sm
-          font-serif
-          leading-7
-        "
-      >
-        Keluarga Nomate
-        <br />
-        Keluarga Buling
-      </p>
-
-    </motion.div>
-
-  </div>
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  scaleX: 0,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  scaleX: 1,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3,
+                }}
+                className="
+                  mx-auto
+                  mt-5
+                  h-px
+                  w-16
+                  bg-[#b99d7d]
+                "
+              />
 
 
-  {/* =====================================================
-      NAMA MEMPELAI
-  ====================================================== */}
+              {/* =====================================================
+                  KELUARGA
+              ====================================================== */}
 
-  <motion.div
-    initial={{
-      opacity: 0,
-      y: 20,
-    }}
-    whileInView={{
-      opacity: 1,
-      y: 0,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 0.8,
-      delay: 0.5,
-    }}
-    className="
-      mt-16
-    "
-  >
+              <div
+                className="
+                  mt-10
+                  grid
+                  grid-cols-2
+                  gap-6
+                "
+              >
 
-    <p
-      className="
-        text-xs
-        tracking-[0.3em]
-        text-[#9a8066]
-      "
-    >
-      DENGAN PENUH KASIH
-    </p>
+                {/* =================================================
+                    KELUARGA MEMPELAI PRIA
+                ================================================== */}
 
-    <p
-      className="
-        mt-4
-        text-3xl
-        font-serif
-        text-[#4b3b2f]
-      "
-    >
-      Daniel & Erni
-    </p>
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: -30,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.3,
+                  }}
+                  className="
+                    text-center
+                  "
+                >
 
-  </motion.div>
+                  <p
+                    className="
+                      text-[10px]
+                      tracking-[0.2em]
+                      text-[#9a8066]
+                    "
+                  >
+                    KELUARGA MEMPELAI 
+                    <br />
+                    PRIA
+                  </p>
+
+                  <div
+                    className="
+                      mx-auto
+                      mt-4
+                      h-px
+                      w-8
+                      bg-[#b99d7d]/60
+                    "
+                  />
+
+                  <p
+                    className="
+                      mt-5
+                      text-sm
+                      font-serif
+                      leading-7
+                    "
+                  >
+                    Keluarga Tanaem
+                    <br />
+                    Keluarga Laos
+                  </p>
+
+                </motion.div>
 
 
-  {/* ORNAMEN PENUTUP */}
+                {/* =================================================
+                    KELUARGA MEMPELAI WANITA
+                ================================================== */}
 
-  <motion.div
-    initial={{
-      opacity: 0,
-    }}
-    whileInView={{
-      opacity: 1,
-    }}
-    viewport={{
-      once: true,
-    }}
-    transition={{
-      duration: 1,
-      delay: 0.7,
-    }}
-    className="
-      mt-8
-      text-2xl
-      text-[#b99d7d]
-    "
-  >
-    ❦
-  </motion.div>
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    x: 30,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    x: 0,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.3,
+                  }}
+                  className="
+                    text-center
+                  "
+                >
 
-</section>
+                  <p
+                    className="
+                      text-[10px]
+                      tracking-[0.2em]
+                      text-[#9a8066]
+                    "
+                  >
+                    KELUARGA MEMPELAI 
+                    <br />
+                    WANITA
+                  </p>
+
+                  <div
+                    className="
+                      mx-auto
+                      mt-4
+                      h-px
+                      w-8
+                      bg-[#b99d7d]/60
+                    "
+                  />
+
+                  <p
+                    className="
+                      mt-5
+                      text-sm
+                      font-serif
+                      leading-7
+                    "
+                  >
+                    Keluarga Nomate
+                    <br />
+                    Keluarga Buling
+                  </p>
+
+                </motion.div>
+
+              </div>
+
+
+              {/* =====================================================
+                  NAMA MEMPELAI
+              ====================================================== */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.5,
+                }}
+                className="
+                  mt-16
+                "
+              >
+
+                <p
+                  className="
+                    text-xs
+                    tracking-[0.3em]
+                    text-[#9a8066]
+                  "
+                >
+                  DENGAN PENUH KASIH
+                </p>
+
+                <p
+                  className="
+                    mt-4
+                    text-3xl
+                    font-serif
+                    text-[#4b3b2f]
+                  "
+                >
+                  Daniel & Erni
+                </p>
+
+              </motion.div>
+
+
+              {/* ORNAMEN PENUTUP */}
+
+              <motion.div
+                initial={{
+                  opacity: 0,
+                }}
+                whileInView={{
+                  opacity: 1,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  duration: 1,
+                  delay: 0.7,
+                }}
+                className="
+                  mt-8
+                  text-2xl
+                  text-[#b99d7d]
+                "
+              >
+                ❦
+              </motion.div>
+            {/* =====================================================
+                SHARE WHATSAPP
+            ====================================================== */}
+            <WhatsAppShare />
+            </section>
 
           </motion.div>
 
