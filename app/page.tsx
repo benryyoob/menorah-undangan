@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import Countdown from "@/components/Countdown"
 import Image from "next/image"
 import Location from "@/components/Location"
@@ -14,6 +15,20 @@ export default function Home() {
   const [isOpening, setIsOpening] = useState(false)
   const [isOpened, setIsOpened] = useState(false)
 
+  // =====================================================
+  // NAMA TAMU DARI URL
+  // Contoh:
+  // ?to=Bapak%20John%20Doe
+  // =====================================================
+
+  const searchParams = useSearchParams()
+
+  const guestName = searchParams.get("to") || ""
+
+  // =====================================================
+  // BUKA UNDANGAN
+  // =====================================================
+
   const handleOpenInvitation = () => {
     setIsOpening(true)
 
@@ -23,18 +38,23 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-[#f8f3ed] overflow-hidden">
-      <MusicPlayer isPlaying={isOpened} />
+    <main className="min-h-screen bg-[#f8f3ed]">
+
       <AnimatePresence mode="wait">
 
         {/* =====================================================
             COVER / AMPLOP
         ====================================================== */}
+
         {!isOpened && (
           <motion.div
             key="opening"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
             exit={{
               opacity: 0,
               scale: 1.05,
@@ -42,12 +62,19 @@ export default function Home() {
                 duration: 1,
               },
             }}
-            className="fixed inset-0 z-50 overflow-hidden bg-black"
+            className="
+              fixed
+              inset-0
+              z-50
+              overflow-hidden
+              bg-black
+            "
           >
 
             {/* =================================================
                 FOTO COVER
             ================================================== */}
+
             <div className="absolute inset-0">
 
               <Image
@@ -60,15 +87,20 @@ export default function Home() {
               />
 
               {/* Overlay */}
+
               <div className="absolute inset-0 bg-black/45" />
 
               {/* Gradient bawah */}
+
               <div
-                className="absolute inset-0
-                bg-gradient-to-t
-                from-black/70
-                via-black/20
-                to-black/20"
+                className="
+                  absolute
+                  inset-0
+                  bg-gradient-to-t
+                  from-black/70
+                  via-black/20
+                  to-black/20
+                "
               />
 
             </div>
@@ -77,25 +109,62 @@ export default function Home() {
             {/* =================================================
                 ORNAMEN
             ================================================== */}
-            <div className="absolute inset-0 pointer-events-none">
 
-              <div className="absolute top-8 left-8
-                text-white/70 text-3xl">
+            <div
+              className="
+                absolute
+                inset-0
+                pointer-events-none
+              "
+            >
+
+              <div
+                className="
+                  absolute
+                  top-8
+                  left-8
+                  text-3xl
+                  text-white/70
+                "
+              >
                 ❦
               </div>
 
-              <div className="absolute top-8 right-8
-                text-white/70 text-3xl">
+              <div
+                className="
+                  absolute
+                  top-8
+                  right-8
+                  text-3xl
+                  text-white/70
+                "
+              >
                 ❦
               </div>
 
-              <div className="absolute bottom-8 left-8
-                text-white/70 text-3xl rotate-180">
+              <div
+                className="
+                  absolute
+                  bottom-8
+                  left-8
+                  rotate-180
+                  text-3xl
+                  text-white/70
+                "
+              >
                 ❦
               </div>
 
-              <div className="absolute bottom-8 right-8
-                text-white/70 text-3xl rotate-180">
+              <div
+                className="
+                  absolute
+                  bottom-8
+                  right-8
+                  rotate-180
+                  text-3xl
+                  text-white/70
+                "
+              >
                 ❦
               </div>
 
@@ -105,12 +174,26 @@ export default function Home() {
             {/* =================================================
                 KONTEN COVER
             ================================================== */}
-            <div className="relative z-10 min-h-screen
-              flex flex-col items-center justify-center
-              px-6 text-center text-white"
+
+            <div
+              className="
+                relative
+                z-10
+                min-h-screen
+                flex
+                flex-col
+                items-center
+                justify-center
+                px-6
+                text-center
+                text-white
+              "
             >
 
-              {/* Label */}
+              {/* =================================================
+                  LABEL
+              ================================================== */}
+
               <motion.div
                 initial={{
                   opacity: 0,
@@ -125,10 +208,13 @@ export default function Home() {
                 }}
               >
 
-                <p className="text-[10px]
-                  tracking-[0.5em]
-                  uppercase
-                  text-white/90"
+                <p
+                  className="
+                    text-[10px]
+                    tracking-[0.5em]
+                    uppercase
+                    text-white/90
+                  "
                 >
                   The Wedding Of
                 </p>
@@ -136,7 +222,59 @@ export default function Home() {
               </motion.div>
 
 
-              {/* Nama */}
+              {/* =================================================
+                  NAMA TAMU
+              ================================================== */}
+
+              {guestName && (
+                <motion.div
+                  initial={{
+                    opacity: 0,
+                    y: -10,
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 1,
+                    delay: 0.2,
+                  }}
+                  className="mt-6"
+                >
+
+                  <p
+                    className="
+                      text-[10px]
+                      tracking-[0.2em]
+                      text-white/70
+                    "
+                  >
+                    Kepada Yth.
+                  </p>
+
+                  <p
+                    className="
+                      mt-2
+                      max-w-xs
+                      font-serif
+                      text-xl
+                      leading-relaxed
+                      text-white
+                      drop-shadow-lg
+                    "
+                  >
+                    {guestName}
+                  </p>
+
+                </motion.div>
+              )}
+
+
+              {/* =================================================
+                  NAMA MEMPELAI
+              ================================================== */}
+
               <motion.div
                 initial={{
                   opacity: 0,
@@ -148,34 +286,40 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 1.2,
-                  delay: 0.2,
+                  delay: guestName ? 0.4 : 0.2,
                 }}
                 className="mt-8"
               >
 
                 <h1
-                  className="text-6xl
-                  font-serif
-                  leading-none
-                  drop-shadow-lg"
+                  className="
+                    text-6xl
+                    font-serif
+                    leading-none
+                    drop-shadow-lg
+                  "
                 >
                   Daniel
                 </h1>
 
                 <p
-                  className="my-3
-                  text-3xl
-                  font-serif
-                  text-white/80"
+                  className="
+                    my-3
+                    text-3xl
+                    font-serif
+                    text-white/80
+                  "
                 >
                   &
                 </p>
 
                 <h1
-                  className="text-6xl
-                  font-serif
-                  leading-none
-                  drop-shadow-lg"
+                  className="
+                    text-6xl
+                    font-serif
+                    leading-none
+                    drop-shadow-lg
+                  "
                 >
                   Erni
                 </h1>
@@ -183,7 +327,10 @@ export default function Home() {
               </motion.div>
 
 
-              {/* Tanggal */}
+              {/* =================================================
+                  TANGGAL
+              ================================================== */}
+
               <motion.div
                 initial={{
                   opacity: 0,
@@ -195,17 +342,26 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 1,
-                  delay: 0.5,
+                  delay: guestName ? 0.7 : 0.5,
                 }}
                 className="mt-8"
               >
 
-                <div className="mx-auto h-px w-12 bg-white/60" />
+                <div
+                  className="
+                    mx-auto
+                    h-px
+                    w-12
+                    bg-white/60
+                  "
+                />
 
                 <p
-                  className="mt-4
-                  text-xs
-                  tracking-[0.35em]"
+                  className="
+                    mt-4
+                    text-xs
+                    tracking-[0.35em]
+                  "
                 >
                   05 SEPTEMBER 2026
                 </p>
@@ -213,7 +369,10 @@ export default function Home() {
               </motion.div>
 
 
-              {/* Tombol */}
+              {/* =================================================
+                  TOMBOL BUKA
+              ================================================== */}
+
               <motion.button
                 initial={{
                   opacity: 0,
@@ -225,33 +384,39 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 1,
-                  delay: 0.8,
+                  delay: guestName ? 1 : 0.8,
                 }}
                 whileHover={{
                   scale: 1.05,
-                  backgroundColor: "rgba(255,255,255,0.25)",
+                  backgroundColor:
+                    "rgba(255,255,255,0.25)",
                 }}
                 whileTap={{
                   scale: 0.95,
                 }}
                 onClick={handleOpenInvitation}
-                className="mt-12
-                rounded-full
-                border
-                border-white/70
-                bg-black/20
-                px-8
-                py-3
-                text-[10px]
-                tracking-[0.3em]
-                backdrop-blur-sm
-                transition-colors"
+                className="
+                  mt-12
+                  rounded-full
+                  border
+                  border-white/70
+                  bg-black/20
+                  px-8
+                  py-3
+                  text-[10px]
+                  tracking-[0.3em]
+                  backdrop-blur-sm
+                  transition-colors
+                "
               >
                 BUKA UNDANGAN
               </motion.button>
 
 
-              {/* Footer */}
+              {/* =================================================
+                  FOOTER
+              ================================================== */}
+
               <motion.p
                 initial={{
                   opacity: 0,
@@ -261,12 +426,15 @@ export default function Home() {
                 }}
                 transition={{
                   duration: 1,
-                  delay: 1.2,
+                  delay: guestName ? 1.3 : 1.2,
                 }}
-                className="absolute bottom-10
-                text-[9px]
-                tracking-[0.4em]
-                text-white/70"
+                className="
+                  absolute
+                  bottom-10
+                  text-[9px]
+                  tracking-[0.4em]
+                  text-white/70
+                "
               >
                 WITH LOVE
               </motion.p>
@@ -280,6 +448,7 @@ export default function Home() {
         {/* =====================================================
             ISI UNDANGAN
         ====================================================== */}
+
         {isOpened && (
           <motion.div
             key="invitation"
@@ -294,194 +463,322 @@ export default function Home() {
             transition={{
               duration: 1,
             }}
-            className="min-h-screen w-full max-w-md mx-auto
-            bg-[#f8f3ed] text-[#4b3b2f]"
+            className="
+              min-h-screen
+              w-full
+              max-w-md
+              mx-auto
+              bg-[#f8f3ed]
+              text-[#4b3b2f]
+            "
           >
 
-          {/* =====================================================
-              HERO
-          ====================================================== */}
-          <section className="relative min-h-screen overflow-hidden">
+            {/* =====================================================
+                HERO
+            ====================================================== */}
 
-            {/* FOTO LATAR */}
-            <div className="absolute inset-0">
-
-              <Image
-                src="/images/couple2.jpg"
-                alt="Daniel dan Erni"
-                fill
-                priority
-                className="object-cover object-center"
-                sizes="100vw"
-              />
-
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/40" />
-
-              {/* Gradient */}
-              <div
-                className="absolute inset-0
-                bg-gradient-to-b
-                from-black/20
-                via-black/20
-                to-black/70"
-              />
-
-            </div>
-
-
-            {/* Ornamen */}
-            <div className="absolute inset-0 z-10 pointer-events-none">
-
-              <div className="absolute top-8 left-8
-                text-white/60 text-3xl">
-                ❦
-              </div>
-
-              <div className="absolute top-8 right-8
-                text-white/60 text-3xl">
-                ❦
-              </div>
-
-              <div className="absolute bottom-8 left-8
-                text-white/60 text-3xl rotate-180">
-                ❦
-              </div>
-
-              <div className="absolute bottom-8 right-8
-                text-white/60 text-3xl rotate-180">
-                ❦
-              </div>
-
-            </div>
-
-
-            {/* KONTEN HERO */}
-            <motion.div
-              initial={{
-                opacity: 0,
-                y: 30,
-              }}
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 1.2,
-              }}
-              className="relative z-20
-              min-h-screen
-              flex flex-col
-              items-center
-              justify-center
-              px-6
-              text-center
-              text-white"
+            <section
+              className="
+                relative
+                min-h-screen
+                overflow-hidden
+              "
             >
 
-              <p className="text-[10px]
-                tracking-[0.5em]
-                uppercase
-                text-white/80"
+              {/* FOTO LATAR */}
+
+              <div className="absolute inset-0">
+
+                <Image
+                  src="/images/couple2.jpg"
+                  alt="Daniel dan Erni"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                  sizes="100vw"
+                />
+
+                {/* Overlay */}
+
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-black/40
+                  "
+                />
+
+                {/* Gradient */}
+
+                <div
+                  className="
+                    absolute
+                    inset-0
+                    bg-gradient-to-b
+                    from-black/20
+                    via-black/20
+                    to-black/70
+                  "
+                />
+
+              </div>
+
+
+              {/* Ornamen */}
+
+              <div
+                className="
+                  absolute
+                  inset-0
+                  z-10
+                  pointer-events-none
+                "
               >
-                The Wedding Of
-              </p>
+
+                <div
+                  className="
+                    absolute
+                    top-8
+                    left-8
+                    text-3xl
+                    text-white/60
+                  "
+                >
+                  ❦
+                </div>
+
+                <div
+                  className="
+                    absolute
+                    top-8
+                    right-8
+                    text-3xl
+                    text-white/60
+                  "
+                >
+                  ❦
+                </div>
+
+                <div
+                  className="
+                    absolute
+                    bottom-8
+                    left-8
+                    rotate-180
+                    text-3xl
+                    text-white/60
+                  "
+                >
+                  ❦
+                </div>
+
+                <div
+                  className="
+                    absolute
+                    bottom-8
+                    right-8
+                    rotate-180
+                    text-3xl
+                    text-white/60
+                  "
+                >
+                  ❦
+                </div>
+
+              </div>
 
 
-              <h1 className="mt-8
-                text-6xl
-                font-serif
-                leading-none
-                drop-shadow-xl"
-              >
-                Daniel
-              </h1>
+              {/* KONTEN HERO */}
 
-
-              <p className="my-3
-                text-3xl
-                font-serif
-                text-white/80"
-              >
-                &
-              </p>
-
-
-              <h1 className="text-6xl
-                font-serif
-                leading-none
-                drop-shadow-xl"
-              >
-                Erni
-              </h1>
-
-
-              {/* Garis */}
-              <div className="mt-8
-                h-px
-                w-14
-                bg-white/60"
-              />
-
-
-              {/* Tanggal */}
-              <p className="mt-5
-                text-xs
-                tracking-[0.35em]"
-              >
-                05 SEPTEMBER 2026
-              </p>
-
-
-              {/* Lokasi singkat */}
-              <p className="mt-3
-                text-xs
-                tracking-[0.15em]
-                text-white/80"
-              >
-                KUPANG, NUSA TENGGARA TIMUR
-              </p>
-
-
-              {/* Scroll indicator */}
               <motion.div
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
                 animate={{
-                  y: [0, 8, 0],
+                  opacity: 1,
+                  y: 0,
                 }}
                 transition={{
-                  duration: 2,
-                  repeat: Infinity,
+                  duration: 1.2,
                 }}
-                className="absolute bottom-10
-                flex flex-col
-                items-center
-                gap-2"
+                className="
+                  relative
+                  z-20
+                  min-h-screen
+                  flex
+                  flex-col
+                  items-center
+                  justify-center
+                  px-6
+                  text-center
+                  text-white
+                "
               >
 
-                <span className="text-[9px]
-                  tracking-[0.3em]
-                  text-white/70"
+                <p
+                  className="
+                    text-[10px]
+                    tracking-[0.5em]
+                    uppercase
+                    text-white/80
+                  "
                 >
-                  SCROLL
-                </span>
+                  The Wedding Of
+                </p>
 
-                <div className="h-8 w-px bg-white/50" />
+
+                <h1
+                  className="
+                    mt-8
+                    text-6xl
+                    font-serif
+                    leading-none
+                    drop-shadow-xl
+                  "
+                >
+                  Daniel
+                </h1>
+
+
+                <p
+                  className="
+                    my-3
+                    text-3xl
+                    font-serif
+                    text-white/80
+                  "
+                >
+                  &
+                </p>
+
+
+                <h1
+                  className="
+                    text-6xl
+                    font-serif
+                    leading-none
+                    drop-shadow-xl
+                  "
+                >
+                  Erni
+                </h1>
+
+
+                {/* Garis */}
+
+                <div
+                  className="
+                    mt-8
+                    h-px
+                    w-14
+                    bg-white/60
+                  "
+                />
+
+
+                {/* Tanggal */}
+
+                <p
+                  className="
+                    mt-5
+                    text-xs
+                    tracking-[0.35em]
+                  "
+                >
+                  05 SEPTEMBER 2026
+                </p>
+
+
+                {/* Lokasi singkat */}
+
+                <p
+                  className="
+                    mt-3
+                    text-xs
+                    tracking-[0.15em]
+                    text-white/80
+                  "
+                >
+                  KUPANG, NUSA TENGGARA TIMUR
+                </p>
+
+
+                {/* Scroll indicator */}
+
+                <motion.div
+                  animate={{
+                    y: [0, 8, 0],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                  }}
+                  className="
+                    absolute
+                    bottom-10
+                    flex
+                    flex-col
+                    items-center
+                    gap-2
+                  "
+                >
+
+                  <span
+                    className="
+                      text-[9px]
+                      tracking-[0.3em]
+                      text-white/70
+                    "
+                  >
+                    SCROLL
+                  </span>
+
+                  <div
+                    className="
+                      h-8
+                      w-px
+                      bg-white/50
+                    "
+                  />
+
+                </motion.div>
 
               </motion.div>
 
-            </motion.div>
-
-          </section>
+            </section>
 
 
-            {/* PEMBUKAAN */}
-            <section className="px-6 py-24 text-center">
+            {/* =====================================================
+                PEMBUKAAN
+            ====================================================== */}
 
-              <p className="text-xs tracking-[0.35em] text-[#9a8066]">
+            <section
+              className="
+                px-6
+                py-24
+                text-center
+              "
+            >
+
+              <p
+                className="
+                  text-xs
+                  tracking-[0.35em]
+                  text-[#9a8066]
+                "
+              >
                 SALAM KASIH
               </p>
 
-              <p className="mt-10 text-lg font-serif leading-8">
+              <p
+                className="
+                  mt-10
+                  text-lg
+                  font-serif
+                  leading-8
+                "
+              >
                 Dengan penuh sukacita,
                 <br />
                 kami mengundang Bapak/Ibu/Saudara/i
@@ -494,17 +791,38 @@ export default function Home() {
             </section>
 
 
-            {/* MEMPELAI */}
-            <section className="px-6 py-24 text-center">
+            {/* =====================================================
+                MEMPELAI
+            ====================================================== */}
 
-              <p className="text-xs tracking-[0.35em] text-[#9a8066]">
+            <section
+              className="
+                px-6
+                py-24
+                text-center
+              "
+            >
+
+              <p
+                className="
+                  text-xs
+                  tracking-[0.35em]
+                  text-[#9a8066]
+                "
+              >
                 MEMPELAI
               </p>
 
 
-              {/* Daniel */}
+              {/* =================================================
+                  DANIEL
+              ================================================== */}
+
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
                 whileInView={{
                   opacity: 1,
                   y: 0,
@@ -519,16 +837,48 @@ export default function Home() {
               >
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="relative w-48 h-48 mx-auto"
+                  initial={{
+                    opacity: 0,
+                    scale: 0.8,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                  }}
+                  className="
+                    relative
+                    mx-auto
+                    h-48
+                    w-48
+                  "
                 >
 
-                  <div className="absolute inset-0 rounded-full border border-[#b99d7d] p-2">
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      rounded-full
+                      border
+                      border-[#b99d7d]
+                      p-2
+                    "
+                  >
 
-                    <div className="relative w-full h-full overflow-hidden rounded-full">
+                    <div
+                      className="
+                        relative
+                        h-full
+                        w-full
+                        overflow-hidden
+                        rounded-full
+                      "
+                    >
 
                       <Image
                         src="/images/daniel.jpg"
@@ -544,7 +894,14 @@ export default function Home() {
 
                 </motion.div>
 
-                <h2 className="mt-8 text-4xl font-serif">
+
+                <h2
+                  className="
+                    mt-8
+                    text-4xl
+                    font-serif
+                  "
+                >
                   Daniel Tanaem
                 </h2>
 
@@ -552,7 +909,13 @@ export default function Home() {
                   S.Kep., Ns
                 </p>
 
-                <p className="mt-6 text-sm leading-7">
+                <p
+                  className="
+                    mt-6
+                    text-sm
+                    leading-7
+                  "
+                >
                   Putra dari
                   <br />
                   Alm. Benyamin Tanaem
@@ -560,21 +923,42 @@ export default function Home() {
                   & Antoneta W. Laos
                 </p>
 
-                <p className="mt-3 text-xs text-[#9a8066]">
+                <p
+                  className="
+                    mt-3
+                    text-xs
+                    text-[#9a8066]
+                  "
+                >
                   Anak ke-6 dari 7 bersaudara
                 </p>
 
               </motion.div>
 
 
-              <div className="my-16 text-4xl font-serif text-[#9a8066]">
+              {/* & */}
+
+              <div
+                className="
+                  my-16
+                  text-4xl
+                  font-serif
+                  text-[#9a8066]
+                "
+              >
                 &
               </div>
 
 
-              {/* Erni */}
+              {/* =================================================
+                  ERNI
+              ================================================== */}
+
               <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{
+                  opacity: 0,
+                  y: 30,
+                }}
                 whileInView={{
                   opacity: 1,
                   y: 0,
@@ -588,16 +972,48 @@ export default function Home() {
               >
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
-                  className="relative w-48 h-48 mx-auto"
+                  initial={{
+                    opacity: 0,
+                    scale: 0.8,
+                  }}
+                  whileInView={{
+                    opacity: 1,
+                    scale: 1,
+                  }}
+                  viewport={{
+                    once: true,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                  }}
+                  className="
+                    relative
+                    mx-auto
+                    h-48
+                    w-48
+                  "
                 >
 
-                  <div className="absolute inset-0 rounded-full border border-[#b99d7d] p-2">
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      rounded-full
+                      border
+                      border-[#b99d7d]
+                      p-2
+                    "
+                  >
 
-                    <div className="relative w-full h-full overflow-hidden rounded-full">
+                    <div
+                      className="
+                        relative
+                        h-full
+                        w-full
+                        overflow-hidden
+                        rounded-full
+                      "
+                    >
 
                       <Image
                         src="/images/erni.jpg"
@@ -613,7 +1029,14 @@ export default function Home() {
 
                 </motion.div>
 
-                <h2 className="mt-8 text-4xl font-serif">
+
+                <h2
+                  className="
+                    mt-8
+                    text-4xl
+                    font-serif
+                  "
+                >
                   Erni S. Nomate
                 </h2>
 
@@ -621,7 +1044,13 @@ export default function Home() {
                   S.KM
                 </p>
 
-                <p className="mt-6 text-sm leading-7">
+                <p
+                  className="
+                    mt-6
+                    text-sm
+                    leading-7
+                  "
+                >
                   Putri dari
                   <br />
                   Tertulianus Nomate
@@ -629,25 +1058,75 @@ export default function Home() {
                   & Marselina Buling
                 </p>
 
-                <p className="mt-3 text-xs text-[#9a8066]">
+                <p
+                  className="
+                    mt-3
+                    text-xs
+                    text-[#9a8066]
+                  "
+                >
                   Anak ke-6 dari 6 bersaudara
                 </p>
 
               </motion.div>
 
             </section>
+
+
+            {/* =====================================================
+                LOVE STORY
+            ====================================================== */}
+
             <LoveStory />
+
+
+            {/* =====================================================
+                GALLERY
+            ====================================================== */}
+
             <Gallery />
 
+
+            {/* =====================================================
+                LOCATION
+            ====================================================== */}
+
             <Location />
+
+
+            {/* =====================================================
+                COUNTDOWN
+            ====================================================== */}
+
             <Countdown />
+
+
+            {/* =====================================================
+                RSVP
+            ====================================================== */}
+
             <RSVP />
 
 
-            {/* PENUTUP */}
-            <section className="px-6 py-28 text-center">
+            {/* =====================================================
+                PENUTUP
+            ====================================================== */}
 
-              <p className="text-lg font-serif leading-8">
+            <section
+              className="
+                px-6
+                py-28
+                text-center
+              "
+            >
+
+              <p
+                className="
+                  text-lg
+                  font-serif
+                  leading-8
+                "
+              >
                 Merupakan suatu kebahagiaan bagi kami
                 <br />
                 apabila Bapak/Ibu/Saudara/i
@@ -657,11 +1136,24 @@ export default function Home() {
                 doa restu kepada kami.
               </p>
 
-              <p className="mt-12 text-xs tracking-[0.3em] text-[#9a8066]">
+              <p
+                className="
+                  mt-12
+                  text-xs
+                  tracking-[0.3em]
+                  text-[#9a8066]
+                "
+              >
                 DENGAN PENUH KASIH
               </p>
 
-              <p className="mt-4 text-3xl font-serif">
+              <p
+                className="
+                  mt-4
+                  text-3xl
+                  font-serif
+                "
+              >
                 Daniel & Erni
               </p>
 

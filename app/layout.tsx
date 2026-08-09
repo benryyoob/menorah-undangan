@@ -13,9 +13,17 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  // =========================================
+  // BASE URL
+  // =========================================
+
   metadataBase: new URL(
-    "https://undangan-daniel-erni.vercel.app"
+    "https://daniel-dan-erni.vercel.app"
   ),
+
+  // =========================================
+  // BASIC SEO
+  // =========================================
 
   title: {
     default: "Daniel & Erni | Undangan Pernikahan",
@@ -42,15 +50,29 @@ export const metadata: Metadata = {
 
   publisher: "Daniel & Erni",
 
+  // =========================================
+  // ICON
+  // =========================================
+
   icons: {
     icon: "/images/favicon.png",
     shortcut: "/images/favicon.png",
     apple: "/images/favicon.png",
   },
 
+  // =========================================
+  // OPEN GRAPH
+  // WhatsApp / Facebook / Telegram
+  // =========================================
+
   openGraph: {
     type: "website",
+
     locale: "id_ID",
+
+    url: "https://daniel-dan-erni.vercel.app",
+
+    siteName: "Daniel & Erni",
 
     title:
       "Daniel & Erni | Undangan Pernikahan",
@@ -58,19 +80,20 @@ export const metadata: Metadata = {
     description:
       "Dengan penuh sukacita, kami mengundang Anda untuk hadir dan berbagi kebahagiaan dalam pernikahan Daniel & Erni.",
 
-    url: "/",
-
-    siteName: "Daniel & Erni",
-
     images: [
       {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Daniel & Erni - Undangan Pernikahan",
+        alt:
+          "Daniel & Erni - Undangan Pernikahan",
       },
     ],
   },
+
+  // =========================================
+  // TWITTER / X
+  // =========================================
 
   twitter: {
     card: "summary_large_image",
@@ -86,11 +109,20 @@ export const metadata: Metadata = {
     ],
   },
 
+  // =========================================
+  // ROBOTS
+  // =========================================
+
   robots: {
     index: true,
     follow: true,
   },
 }
+
+
+// =========================================
+// ROOT LAYOUT
+// =========================================
 
 export default function RootLayout({
   children,
