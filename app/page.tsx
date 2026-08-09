@@ -740,7 +740,7 @@ function HomeContent() {
                     tracking-[0.35em]
                   "
                 >
-                  Kupang, 05 SEPTEMBER 2026
+                  Kupang, 05 September 2026
                 </p>
 
 
