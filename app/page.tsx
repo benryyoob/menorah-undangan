@@ -11,7 +11,6 @@ import MusicPlayer from "@/components/MusicPlayer"
 import LoveStory from "@/components/LoveStory"
 import Gallery from "@/components/Gallery"
 import RSVP from "@/components/RSVP"
-import WhatsAppShare from "@/components/WhatsAppShare"
 
 // =====================================================
 // KONTEN UTAMA
@@ -1502,10 +1501,6 @@ function HomeContent() {
               >
                 ❦
               </motion.div>
-            {/* =====================================================
-                SHARE WHATSAPP
-            ====================================================== */}
-            <WhatsAppShare />
             </section>
 
           </motion.div>

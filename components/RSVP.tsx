@@ -10,7 +10,6 @@ import {
 import { motion } from "framer-motion"
 import { createClient } from "@supabase/supabase-js"
 
-
 // =========================================
 // SUPABASE CLIENT
 // =========================================
@@ -19,7 +18,6 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
-
 
 // =========================================
 // TYPE RSVP
@@ -34,13 +32,22 @@ type RSVPData = {
   created_at: string
 }
 
+// =========================================
+// TYPE FORM ERROR
+// =========================================
+
+type FormErrors = {
+  nama?: string
+  kehadiran?: string
+  jumlahTamu?: string
+  ucapan?: string
+}
 
 // =========================================
 // COMPONENT
 // =========================================
 
 export default function RSVP() {
-
   // =========================================
   // FORM STATE
   // =========================================
@@ -51,46 +58,49 @@ export default function RSVP() {
     "hadir" | "tidak_hadir"
   >("hadir")
 
-  const [jumlahTamu, setJumlahTamu] = useState(1)
+  const [jumlahTamu, setJumlahTamu] = useState<
+    number | ""
+  >("")
 
   const [ucapan, setUcapan] = useState("")
-
 
   // =========================================
   // STATUS
   // =========================================
 
   const [loading, setLoading] = useState(false)
-
   const [success, setSuccess] = useState(false)
-
   const [error, setError] = useState("")
 
+  // =========================================
+  // FIELD ERROR
+  // =========================================
+
+  const [formErrors, setFormErrors] =
+    useState<FormErrors>({})
 
   // =========================================
   // RSVP LIST
   // =========================================
 
-  const [rsvpList, setRsvpList] = useState<RSVPData[]>([])
+  const [rsvpList, setRsvpList] =
+    useState<RSVPData[]>([])
 
   const [loadingRSVP, setLoadingRSVP] =
     useState(true)
-
 
   // =========================================
   // AUTO SCROLL REF
   // =========================================
 
   const rsvpScrollRef =
-    useRef<HTMLDivElement>(null)
-
+    useRef<HTMLDivElement | null>(null)
 
   // =========================================
   // FETCH RSVP
   // =========================================
 
   async function fetchRSVP() {
-
     setLoadingRSVP(true)
 
     const { data, error } = await supabase
@@ -105,7 +115,6 @@ export default function RSVP() {
       })
 
     if (error) {
-
       console.error(
         "Gagal mengambil data RSVP:",
         error
@@ -121,167 +130,310 @@ export default function RSVP() {
     setLoadingRSVP(false)
   }
 
-
   // =========================================
-  // LOAD RSVP SAAT COMPONENT DIBUKA
+  // LOAD RSVP
   // =========================================
 
   useEffect(() => {
-
     fetchRSVP()
-
   }, [])
 
-
   // =========================================
-  // AUTO SCROLL UCAPAN
+  // VALIDASI FORM
   // =========================================
 
-  useEffect(() => {
+  function validateForm(): boolean {
+    const errors: FormErrors = {}
+
+    // =========================================
+    // NAMA
+    // =========================================
+
+    const namaTrimmed = nama.trim()
+
+    if (namaTrimmed.length === 0) {
+      errors.nama =
+        "Nama wajib diisi."
+    }
+
+    else if (namaTrimmed.length < 3) {
+      errors.nama =
+        "Nama minimal 3 karakter."
+    }
+
+    else if (namaTrimmed.length > 100) {
+      errors.nama =
+        "Nama maksimal 100 karakter."
+    }
+
+    // Nama harus mengandung huruf
+    else if (
+      !/[a-zA-ZÀ-ÿ\u00C0-\u024F\u1E00-\u1EFF]/.test(
+        namaTrimmed
+      )
+    ) {
+      errors.nama =
+        "Nama harus mengandung huruf."
+    }
+
+    // =========================================
+    // KEHADIRAN
+    // =========================================
 
     if (
-      loadingRSVP ||
-      rsvpList.length === 0
+      kehadiran !== "hadir" &&
+      kehadiran !== "tidak_hadir"
     ) {
-      return
+      errors.kehadiran =
+        "Silakan pilih konfirmasi kehadiran."
     }
 
-    const container =
-      rsvpScrollRef.current
+    // =========================================
+    // JUMLAH TAMU
+    // =========================================
 
-    if (!container) {
-      return
-    }
-
-
-    let animationFrame: number
-
-
-    // Kecepatan scroll
-    const scrollSpeed = 0.35
-
-
-    function autoScroll() {
-
-      if (!container) {
-        return
-      }
-
-
-      const maxScroll =
-        container.scrollHeight -
-        container.clientHeight
-
-
-      // Kalau jumlah ucapan belum cukup
-      // untuk membuat scroll
-      if (maxScroll <= 0) {
-        return
-      }
-
-
-      // Kalau sudah sampai bawah
-      // kembali ke atas
+    if (kehadiran === "hadir") {
       if (
-        container.scrollTop >=
-        maxScroll - 1
+        jumlahTamu === "" ||
+        jumlahTamu === null
       ) {
-
-        container.scrollTop = 0
-
-      } else {
-
-        container.scrollTop +=
-          scrollSpeed
-
+        errors.jumlahTamu =
+          "Silakan pilih jumlah tamu."
       }
 
+      else if (
+        typeof jumlahTamu !== "number" ||
+        !Number.isInteger(jumlahTamu)
+      ) {
+        errors.jumlahTamu =
+          "Jumlah tamu tidak valid."
+      }
 
-      animationFrame =
-        requestAnimationFrame(
-          autoScroll
-        )
+      else if (jumlahTamu < 1) {
+        errors.jumlahTamu =
+          "Jumlah tamu minimal 1 orang."
+      }
+
+      else if (jumlahTamu > 10) {
+        errors.jumlahTamu =
+          "Jumlah tamu maksimal 10 orang."
+      }
     }
 
 
-    animationFrame =
-      requestAnimationFrame(
-        autoScroll
-      )
+    // =========================================
+    // UCAPAN
+    // =========================================
 
+    const ucapanTrimmed = ucapan.trim()
 
-    return () => {
-
-      cancelAnimationFrame(
-        animationFrame
-      )
-
+    // UCAPAN WAJIB DIISI
+    if (ucapanTrimmed.length === 0) {
+      errors.ucapan =
+        "Ucapan dan doa wajib diisi."
     }
 
-  }, [
-    loadingRSVP,
-    rsvpList,
-  ])
+    // Minimal 5 karakter
+    else if (ucapanTrimmed.length < 5) {
+      errors.ucapan =
+        "Ucapan minimal 5 karakter."
+    }
 
+    // Maksimal 500 karakter
+    else if (ucapanTrimmed.length > 500) {
+      errors.ucapan =
+        "Ucapan maksimal 500 karakter."
+    }
+
+    // Harus mengandung huruf
+    else if (
+      !/[a-zA-ZÀ-ÿ\u00C0-\u024F\u1E00-\u1EFF]/.test(
+        ucapanTrimmed
+      )
+    ) {
+      errors.ucapan =
+        "Ucapan harus mengandung huruf."
+    }
+
+    // Tidak boleh terlalu banyak karakter yang sama
+    // Contoh: aaaaaaaaaaaa
+    else if (
+      /(.)\1{7,}/.test(
+        ucapanTrimmed
+      )
+    ) {
+      errors.ucapan =
+        "Ucapan tidak valid. Mohon tuliskan ucapan yang sebenarnya."
+    }
+
+    // =========================================
+    // SIMPAN ERROR
+    // =========================================
+
+    setFormErrors(errors)
+
+    return (
+      Object.keys(errors).length === 0
+    )
+  }
+
+  // =========================================
+  // HANDLE NAMA
+  // =========================================
+
+  function handleNamaChange(
+    value: string
+  ) {
+    setNama(value)
+
+    if (formErrors.nama) {
+      setFormErrors((previous) => ({
+        ...previous,
+        nama: undefined,
+      }))
+    }
+
+    setError("")
+  }
+
+  // =========================================
+  // HANDLE KEHADIRAN
+  // =========================================
+
+  function handleKehadiranChange(
+    value:
+      | "hadir"
+      | "tidak_hadir"
+  ) {
+    setKehadiran(value)
+
+    setFormErrors((previous) => ({
+      ...previous,
+      kehadiran: undefined,
+      jumlahTamu: undefined,
+    }))
+
+    setError("")
+  }
+
+  // =========================================
+  // HANDLE JUMLAH TAMU
+  // =========================================
+
+  function handleJumlahTamuChange(
+    value: string
+  ) {
+    const parsedValue =
+      value === ""
+        ? ""
+        : Number(value)
+
+    setJumlahTamu(parsedValue)
+
+    setFormErrors((previous) => ({
+      ...previous,
+      jumlahTamu: undefined,
+    }))
+
+    setError("")
+  }
+
+  // =========================================
+  // HANDLE UCAPAN
+  // =========================================
+
+  function handleUcapanChange(
+    value: string
+  ) {
+    // Batasi maksimal 500 karakter
+    if (value.length > 500) {
+      return
+    }
+
+    setUcapan(value)
+
+    if (formErrors.ucapan) {
+      setFormErrors((previous) => ({
+        ...previous,
+        ucapan: undefined,
+      }))
+    }
+
+    setError("")
+  }
 
   // =========================================
   // SUBMIT RSVP
   // =========================================
 
   async function handleSubmit(
-    event: FormEvent
+    event: FormEvent<HTMLFormElement>
   ) {
-
     event.preventDefault()
 
+    // =========================================
+    // RESET STATUS
+    // =========================================
 
     setError("")
-
     setSuccess(false)
 
+    // =========================================
+    // VALIDASI
+    // =========================================
 
-    // Validasi nama
-    if (!nama.trim()) {
+    const isValid =
+      validateForm()
 
-      setError(
-        "Silakan masukkan nama Anda."
-      )
-
+    // JANGAN LANJUT KE SUPABASE
+    // JIKA VALIDASI GAGAL
+    if (!isValid) {
       return
     }
 
+    // =========================================
+    // LOADING
+    // =========================================
 
     setLoading(true)
 
+    // =========================================
+    // INSERT SUPABASE
+    // =========================================
 
-    // Insert ke Supabase
-    const { error } =
-      await supabase
-        .from("rsvp")
-        .insert({
+    const {
+      error: insertError,
+    } = await supabase
+      .from("rsvp")
+      .insert({
+        nama: nama.trim(),
 
-          nama: nama.trim(),
+        kehadiran,
 
-          kehadiran,
+        jumlah_tamu:
+          kehadiran === "hadir"
+            ? Number(jumlahTamu)
+            : 1,
 
-          jumlah_tamu:
-            kehadiran === "hadir"
-              ? jumlahTamu
-              : 1,
+        ucapan:
+          ucapan.trim() || null,
+      })
 
-          ucapan:
-            ucapan.trim() || null,
-
-        })
-
+    // =========================================
+    // STOP LOADING
+    // =========================================
 
     setLoading(false)
 
+    // =========================================
+    // ERROR SUPABASE
+    // =========================================
 
-    // Jika gagal
-    if (error) {
-
-      console.error(error)
+    if (insertError) {
+      console.error(
+        "Gagal menyimpan RSVP:",
+        insertError
+      )
 
       setError(
         "Maaf, konfirmasi belum berhasil dikirim. Silakan coba lagi."
@@ -290,32 +442,30 @@ export default function RSVP() {
       return
     }
 
+    // =========================================
+    // BERHASIL
+    // =========================================
 
-    // Berhasil
     setSuccess(true)
 
-
-    // Refresh daftar ucapan
     await fetchRSVP()
 
+    // =========================================
+    // RESET FORM
+    // =========================================
 
-    // Reset form
     setNama("")
-
     setKehadiran("hadir")
-
-    setJumlahTamu(1)
-
+    setJumlahTamu("")
     setUcapan("")
+    setFormErrors({})
   }
-
 
   // =========================================
   // RETURN
   // =========================================
 
   return (
-
     <section
       className="
         relative
@@ -329,7 +479,6 @@ export default function RSVP() {
         py-20
       "
     >
-
 
       {/* =========================================
           FOTO LATAR
@@ -348,7 +497,6 @@ export default function RSVP() {
           "
         />
 
-
         <div
           className="
             absolute
@@ -356,7 +504,6 @@ export default function RSVP() {
             bg-black/55
           "
         />
-
 
         <div
           className="
@@ -370,7 +517,6 @@ export default function RSVP() {
         />
 
       </div>
-
 
       {/* =========================================
           ORNAMEN
@@ -396,7 +542,6 @@ export default function RSVP() {
           ❦
         </div>
 
-
         <div
           className="
             absolute
@@ -408,7 +553,6 @@ export default function RSVP() {
         >
           ❦
         </div>
-
 
         <div
           className="
@@ -422,7 +566,6 @@ export default function RSVP() {
         >
           ❦
         </div>
-
 
         <div
           className="
@@ -438,7 +581,6 @@ export default function RSVP() {
         </div>
 
       </div>
-
 
       {/* =========================================
           KONTEN
@@ -468,7 +610,6 @@ export default function RSVP() {
         "
       >
 
-
         {/* =====================================
             HEADER
         ====================================== */}
@@ -490,7 +631,6 @@ export default function RSVP() {
             RSVP
           </p>
 
-
           <h2
             className="
               mt-5
@@ -501,7 +641,6 @@ export default function RSVP() {
           >
             Konfirmasi Kehadiran
           </h2>
-
 
           <p
             className="
@@ -517,7 +656,6 @@ export default function RSVP() {
             kebahagiaan bersama Anda.
           </p>
 
-
           <div
             className="
               mx-auto
@@ -529,7 +667,6 @@ export default function RSVP() {
           />
 
         </div>
-
 
         {/* =====================================
             FORM CARD
@@ -555,8 +692,9 @@ export default function RSVP() {
               className="space-y-6"
             >
 
-
-              {/* NAMA */}
+              {/* =================================
+                  NAMA
+              ================================== */}
 
               <div>
 
@@ -573,38 +711,56 @@ export default function RSVP() {
                   NAMA
                 </label>
 
-
                 <input
                   id="nama"
                   type="text"
                   value={nama}
+                  maxLength={100}
                   onChange={(event) =>
-                    setNama(
+                    handleNamaChange(
                       event.target.value
                     )
                   }
                   placeholder="Masukkan nama Anda"
-                  className="
+                  className={`
                     w-full
                     rounded-xl
                     border
-                    border-white/20
-                    bg-white/10
                     px-4
                     py-3
                     text-sm
                     text-white
                     outline-none
                     placeholder:text-white/40
-                    focus:border-white/50
                     focus:bg-white/15
-                  "
+
+                    ${
+                      formErrors.nama
+                        ? "border-red-400/70 bg-red-500/10"
+                        : "border-white/20 bg-white/10 focus:border-white/50"
+                    }
+                  `}
                 />
+
+                {formErrors.nama && (
+
+                  <p
+                    className="
+                      mt-2
+                      text-xs
+                      text-red-200
+                    "
+                  >
+                    {formErrors.nama}
+                  </p>
+
+                )}
 
               </div>
 
-
-              {/* KEHADIRAN */}
+              {/* =================================
+                  KEHADIRAN
+              ================================== */}
 
               <div>
 
@@ -620,7 +776,6 @@ export default function RSVP() {
                   KONFIRMASI KEHADIRAN
                 </label>
 
-
                 <div
                   className="
                     grid
@@ -632,7 +787,9 @@ export default function RSVP() {
                   <button
                     type="button"
                     onClick={() =>
-                      setKehadiran("hadir")
+                      handleKehadiranChange(
+                        "hadir"
+                      )
                     }
                     className={`
                       rounded-xl
@@ -652,11 +809,10 @@ export default function RSVP() {
                     ✓ Hadir
                   </button>
 
-
                   <button
                     type="button"
                     onClick={() =>
-                      setKehadiran(
+                      handleKehadiranChange(
                         "tidak_hadir"
                       )
                     }
@@ -681,10 +837,25 @@ export default function RSVP() {
 
                 </div>
 
+                {formErrors.kehadiran && (
+
+                  <p
+                    className="
+                      mt-2
+                      text-xs
+                      text-red-200
+                    "
+                  >
+                    {formErrors.kehadiran}
+                  </p>
+
+                )}
+
               </div>
 
-
-              {/* JUMLAH TAMU */}
+              {/* =================================
+                  JUMLAH TAMU
+              ================================== */}
 
               {kehadiran === "hadir" && (
 
@@ -712,31 +883,38 @@ export default function RSVP() {
                     JUMLAH TAMU
                   </label>
 
-
                   <select
                     id="jumlahTamu"
                     value={jumlahTamu}
                     onChange={(event) =>
-                      setJumlahTamu(
-                        Number(
-                          event.target.value
-                        )
+                      handleJumlahTamuChange(
+                        event.target.value
                       )
                     }
-                    className="
+                    className={`
                       w-full
                       rounded-xl
                       border
-                      border-white/20
-                      bg-white/10
                       px-4
                       py-3
                       text-sm
                       text-white
                       outline-none
-                      focus:border-white/50
-                    "
+
+                      ${
+                        formErrors.jumlahTamu
+                          ? "border-red-400/70 bg-red-500/10"
+                          : "border-white/20 bg-white/10 focus:border-white/50"
+                      }
+                    `}
                   >
+
+                    <option
+                      value=""
+                      className="text-black"
+                    >
+                      Pilih jumlah tamu
+                    </option>
 
                     {Array.from(
                       { length: 10 },
@@ -756,12 +934,27 @@ export default function RSVP() {
 
                   </select>
 
+                  {formErrors.jumlahTamu && (
+
+                    <p
+                      className="
+                        mt-2
+                        text-xs
+                        text-red-200
+                      "
+                    >
+                      {formErrors.jumlahTamu}
+                    </p>
+
+                  )}
+
                 </motion.div>
 
               )}
 
-
-              {/* UCAPAN */}
+              {/* =================================
+                  UCAPAN
+              ================================== */}
 
               <div>
 
@@ -778,39 +971,79 @@ export default function RSVP() {
                   UCAPAN & DOA
                 </label>
 
-
                 <textarea
                   id="ucapan"
                   value={ucapan}
+                  maxLength={500}
                   onChange={(event) =>
-                    setUcapan(
+                    handleUcapanChange(
                       event.target.value
                     )
                   }
                   placeholder="Tuliskan ucapan dan doa untuk Daniel & Erni..."
                   rows={4}
-                  className="
+                  className={`
                     w-full
                     resize-none
                     rounded-xl
                     border
-                    border-white/20
-                    bg-white/10
                     px-4
                     py-3
                     text-sm
                     text-white
                     outline-none
                     placeholder:text-white/40
-                    focus:border-white/50
                     focus:bg-white/15
-                  "
+
+                    ${
+                      formErrors.ucapan
+                        ? "border-red-400/70 bg-red-500/10"
+                        : "border-white/20 bg-white/10 focus:border-white/50"
+                    }
+                  `}
                 />
+
+                <div
+                  className="
+                    mt-2
+                    flex
+                    justify-between
+                  "
+                >
+
+                  <div>
+
+                    {formErrors.ucapan && (
+
+                      <p
+                        className="
+                          text-xs
+                          text-red-200
+                        "
+                      >
+                        {formErrors.ucapan}
+                      </p>
+
+                    )}
+
+                  </div>
+
+                  <p
+                    className="
+                      text-[10px]
+                      text-white/40
+                    "
+                  >
+                    {ucapan.length}/500
+                  </p>
+
+                </div>
 
               </div>
 
-
-              {/* ERROR */}
+              {/* =================================
+                  ERROR SUPABASE
+              ================================== */}
 
               {error && (
 
@@ -832,8 +1065,9 @@ export default function RSVP() {
 
               )}
 
-
-              {/* SUBMIT */}
+              {/* =================================
+                  SUBMIT
+              ================================== */}
 
               <motion.button
                 type="submit"
@@ -905,7 +1139,6 @@ export default function RSVP() {
                 ✓
               </div>
 
-
               <h3
                 className="
                   mt-6
@@ -915,7 +1148,6 @@ export default function RSVP() {
               >
                 Terima Kasih
               </h3>
-
 
               <p
                 className="
@@ -928,7 +1160,6 @@ export default function RSVP() {
                 Konfirmasi kehadiran dan ucapan
                 Anda telah berhasil dikirim.
               </p>
-
 
               <p
                 className="
@@ -947,15 +1178,11 @@ export default function RSVP() {
 
         </div>
 
-
         {/* =====================================
             DAFTAR UCAPAN
         ====================================== */}
 
         <div className="mt-10 w-full">
-
-
-          {/* HEADER UCAPAN */}
 
           <div
             className="
@@ -975,7 +1202,6 @@ export default function RSVP() {
               UCAPAN & DOA
             </p>
 
-
             <h3
               className="
                 mt-3
@@ -987,9 +1213,6 @@ export default function RSVP() {
             </h3>
 
           </div>
-
-
-          {/* LOADING */}
 
           {loadingRSVP ? (
 
@@ -1005,8 +1228,6 @@ export default function RSVP() {
             </div>
 
           ) : rsvpList.length === 0 ? (
-
-            /* EMPTY STATE */
 
             <div
               className="
@@ -1028,17 +1249,16 @@ export default function RSVP() {
 
           ) : (
 
-            /* =====================================
-               AUTO SCROLL CONTAINER
-            ====================================== */
-
             <div
               ref={rsvpScrollRef}
               className="
                 max-h-[420px]
                 space-y-4
-                overflow-hidden
-                pr-1
+                overflow-y-auto
+                pr-2
+                scrollbar-thin
+                scrollbar-thumb-white/30
+                scrollbar-track-transparent
               "
             >
 
@@ -1071,8 +1291,6 @@ export default function RSVP() {
                   "
                 >
 
-                  {/* NAMA + STATUS */}
-
                   <div
                     className="
                       flex
@@ -1093,7 +1311,6 @@ export default function RSVP() {
                         {item.nama}
                       </p>
 
-
                       <p
                         className="
                           mt-1
@@ -1110,7 +1327,6 @@ export default function RSVP() {
 
                     </div>
 
-
                     <span
                       className="
                         text-lg
@@ -1121,9 +1337,6 @@ export default function RSVP() {
                     </span>
 
                   </div>
-
-
-                  {/* UCAPAN */}
 
                   {item.ucapan && (
 

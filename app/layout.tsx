@@ -131,7 +131,9 @@ export default function RootLayout({
       lang="id"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      {children}
+      <body className="min-h-screen">
+        {children}
+      </body>
     </html>
   )
 }
