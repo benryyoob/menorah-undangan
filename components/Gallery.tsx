@@ -6,43 +6,23 @@ import { AnimatePresence, motion } from "framer-motion"
 
 const photos = [
   {
-    src: "/gallery/foto-1.jpg",
+    src: "/gallery/foto-11.jpg",
     alt: "Daniel dan Erni",
   },
   {
-    src: "/gallery/foto-2.jpg",
+    src: "/gallery/foto-12.jpg",
     alt: "Daniel dan Erni",
   },
   {
-    src: "/gallery/foto-3.jpg",
+    src: "/gallery/foto-13.jpg",
     alt: "Daniel dan Erni",
   },
   {
-    src: "/gallery/foto-4.jpg",
+    src: "/gallery/foto-14.jpg",
     alt: "Daniel dan Erni",
   },
   {
-    src: "/gallery/foto-5.jpg",
-    alt: "Daniel dan Erni",
-  },
-  {
-    src: "/gallery/foto-6.jpg",
-    alt: "Daniel dan Erni",
-  },
-  {
-    src: "/gallery/foto-7.jpg",
-    alt: "Daniel dan Erni",
-  },
-  {
-    src: "/gallery/foto-8.jpg",
-    alt: "Daniel dan Erni",
-  },
-  {
-    src: "/gallery/foto-9.jpg",
-    alt: "Daniel dan Erni",
-  },
-  {
-    src: "/gallery/foto-10.jpg",
+    src: "/gallery/foto-15.jpg",
     alt: "Daniel dan Erni",
   },
 ]
@@ -127,15 +107,6 @@ export default function Gallery() {
             />
 
 
-            {/* FOTO 4 — TINGGI */}
-            <GalleryPhoto
-              photo={photos[3]}
-              onClick={() => setSelectedPhoto(photos[3].src)}
-              className="row-span-2 aspect-[3/4]"
-              index={3}
-            />
-
-
             {/* FOTO 5 */}
             <GalleryPhoto
               photo={photos[4]}
@@ -145,48 +116,12 @@ export default function Gallery() {
             />
 
 
-            {/* FOTO 6 */}
+            {/* FOTO 4 — TINGGI */}
             <GalleryPhoto
-              photo={photos[5]}
-              onClick={() => setSelectedPhoto(photos[5].src)}
-              className="aspect-square"
-              index={5}
-            />
-
-
-            {/* FOTO 7 — BESAR */}
-            <GalleryPhoto
-              photo={photos[6]}
-              onClick={() => setSelectedPhoto(photos[6].src)}
+              photo={photos[3]}
+              onClick={() => setSelectedPhoto(photos[3].src)}
               className="col-span-2 aspect-[4/3]"
-              index={6}
-            />
-
-
-            {/* FOTO 8 */}
-            <GalleryPhoto
-              photo={photos[7]}
-              onClick={() => setSelectedPhoto(photos[7].src)}
-              className="aspect-square"
-              index={7}
-            />
-
-
-            {/* FOTO 9 */}
-            <GalleryPhoto
-              photo={photos[8]}
-              onClick={() => setSelectedPhoto(photos[8].src)}
-              className="aspect-square"
-              index={8}
-            />
-
-
-            {/* FOTO 10 */}
-            <GalleryPhoto
-              photo={photos[9]}
-              onClick={() => setSelectedPhoto(photos[9].src)}
-              className="col-span-2 aspect-[4/3]"
-              index={9}
+              index={3}
             />
 
           </div>
