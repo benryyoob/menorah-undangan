@@ -90,30 +90,28 @@ export default function Gallery() {
 
 
             {/* FOTO 2 */}
-            <GalleryPhoto
-              photo={photos[1]}
-              onClick={() => setSelectedPhoto(photos[1].src)}
-              className="aspect-square"
-              index={1}
-            />
+<GalleryPhoto
+  photo={photos[1]}
+  onClick={() => setSelectedPhoto(photos[1].src)}
+  className="aspect-square"
+  index={1}
+/>
 
+{/* FOTO 3 — TINGGI GABUNGAN FOTO 2 + FOTO 5 */}
+<GalleryPhoto
+  photo={photos[2]}
+  onClick={() => setSelectedPhoto(photos[2].src)}
+  className="row-span-2 h-full min-h-0"
+  index={2}
+/>
 
-            {/* FOTO 3 */}
-            <GalleryPhoto
-              photo={photos[2]}
-              onClick={() => setSelectedPhoto(photos[2].src)}
-              className="aspect-square"
-              index={2}
-            />
-
-
-            {/* FOTO 5 */}
-            <GalleryPhoto
-              photo={photos[4]}
-              onClick={() => setSelectedPhoto(photos[4].src)}
-              className="aspect-square"
-              index={4}
-            />
+{/* FOTO 5 */}
+<GalleryPhoto
+  photo={photos[4]}
+  onClick={() => setSelectedPhoto(photos[4].src)}
+  className="aspect-square"
+  index={4}
+/>
 
 
             {/* FOTO 4 — TINGGI */}
